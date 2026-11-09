@@ -1,6 +1,6 @@
 # grokbot-x-mcp-bridge
 
-把 **Grok Bot 订阅自带的官方 X 接口**（公开读 `x` 命名空间 13 个工具 + 已授权账号侧 `user-X---` 约 83 个工具）桥成常开机器上的 **本地 MCP**，给 Claude Code / Codex / 其他 MCP 客户端直接拿 **原始 Tweet JSON**。
+把 **Grok Bot 订阅自带的官方 X 接口**（公开读 `x` 命名空间 13 个工具 + 已授权账号侧 `user-X---` 近百个工具（会跟着 X 官方更新变动））桥成常开机器上的 **本地 MCP**，给 Claude Code / Codex / 其他 MCP 客户端直接拿 **原始 Tweet JSON**。
 
 不是「让 Bot 搜完再写摘要」；是调用 Grok Bot 内部的官方工具面，原样落盘。
 

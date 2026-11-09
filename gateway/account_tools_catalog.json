@@ -1,113 +1,235 @@
 [
   {
-    "tool": "get_users_me",
-    "description": "Get authenticated user (@<YOUR_X_USERNAME>, id: <YOUR_X_USER_ID>) profile.",
-    "required": [],
+    "tool": "accept_chat_message_request",
+    "description": "Accepts the other user's pending message request in a 1:1 Chat conversation, which moves to the authenticated user's inbox. Without a pending request, including after a successful accept, the response is 404. Replying to a request does not accept it.",
+    "required": [
+      "id"
+    ],
     "properties": [
-      "user.fields",
-      "post.fields",
-      "expansions"
+      "id"
     ]
   },
   {
-    "tool": "get_users_me_followers",
-    "description": "Get the authenticated user's followers.",
-    "required": [],
+    "tool": "add_chat_moderator",
+    "description": "Adds a moderator to the authenticated broadcaster's persistent list and returns the updated moderator user IDs. The list applies to all current and future broadcast chats.",
+    "required": [
+      "user_id"
+    ],
     "properties": [
-      "max_results",
-      "pagination_token",
-      "user.fields",
-      "post.fields",
-      "expansions"
+      "user_id"
     ]
   },
   {
-    "tool": "get_users_me_following",
-    "description": "Get the users the authenticated user follows.",
-    "required": [],
+    "tool": "add_conversation_keys",
+    "description": "Adds (initializes or rotates) the encryption keys for a Chat conversation. Call this before sending messages in a new 1:1 conversation, and again with a newer key version to rotate the conversation key. For 1:1 conversations, provide the recipient's user ID as the conversation id; the server constructs the canonical conversation ID from the authenticated user and recipient. The request body must contain the conversation key version and participant keys (the conversation key encrypted for each participant using their public key).",
+    "required": [
+      "id",
+      "conversation_key_version",
+      "conversation_participant_keys"
+    ],
     "properties": [
-      "max_results",
-      "pagination_token",
-      "user.fields",
-      "post.fields",
-      "expansions"
+      "action_signatures",
+      "base64_encoded_key_rotation",
+      "conversation_key_version",
+      "conversation_participant_keys",
+      "id"
     ]
   },
   {
-    "tool": "get_users_timeline",
-    "description": "Get authenticated user's home timeline (pass id='<YOUR_X_USER_ID>').",
+    "tool": "add_lists_member",
+    "description": "Adds a User to a specific List by its ID.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "archive_chat_conversation",
+    "description": "Archives a Chat conversation for the authenticated user only. Archiving an archived conversation changes nothing. Works for group and 1:1 conversations. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "action_signatures",
+      "id"
+    ]
+  },
+  {
+    "tool": "article_create_draft",
+    "description": "Creates a new Article draft that can later be published.",
+    "required": [
+      "title",
+      "content_state"
+    ],
+    "properties": [
+      "content_state",
+      "cover_media",
+      "title"
+    ]
+  },
+  {
+    "tool": "cancel_scheduled_call",
+    "description": "Cancels a scheduled call the authenticated user organizes, and takes it off invitees' calendars. For a recurring call, scope and occurrence_start_time pick the occurrences: all of them (the default), one, or one and every one after it. Cancelling what is already cancelled succeeds.",
     "required": [
       "id"
     ],
     "properties": [
       "id",
-      "max_results",
-      "pagination_token",
-      "start_time",
-      "end_time",
-      "exclude",
-      "post.fields",
-      "user.fields",
-      "expansions"
+      "notify_invitees",
+      "occurrence_start_time",
+      "scope"
     ]
   },
   {
-    "tool": "get_users_bookmarks",
-    "description": "Get authenticated user's bookmarks (pass id='<YOUR_X_USER_ID>').",
+    "tool": "chat_media_download",
+    "description": "Downloads encrypted media bytes from an XChat conversation. The response body contains raw binary bytes. Returns JSON with the response bytes base64-encoded in `data`, plus `content_type` and `size_bytes`. Needs the OAuth2 scope `media.write`.",
     "required": [
-      "id"
+      "id",
+      "media_hash_key"
     ],
     "properties": [
       "id",
-      "max_results",
-      "pagination_token",
-      "post.fields",
-      "user.fields",
-      "expansions"
+      "media_hash_key"
     ]
   },
   {
-    "tool": "get_users_bookmark_folders",
-    "description": "Get authenticated user's bookmark folders (pass id='<YOUR_X_USER_ID>').",
+    "tool": "chat_media_upload_append",
+    "description": "Appends media data to an XChat upload session. Needs the OAuth2 scope `media.write`.",
     "required": [
-      "id"
+      "id",
+      "media",
+      "segment_index",
+      "conversation_id",
+      "media_hash_key"
     ],
     "properties": [
+      "conversation_id",
       "id",
-      "max_results",
-      "pagination_token"
+      "media",
+      "media_hash_key",
+      "segment_index"
     ]
   },
   {
-    "tool": "get_users_bookmarks_by_folder_id",
-    "description": "Get bookmarks inside a folder.",
+    "tool": "chat_media_upload_finalize",
+    "description": "Finalizes an XChat media upload session. Needs the OAuth2 scope `media.write`.",
     "required": [
       "id",
-      "folder_id"
+      "conversation_id",
+      "media_hash_key",
+      "num_parts"
     ],
     "properties": [
+      "conversation_id",
       "id",
-      "folder_id",
-      "max_results",
-      "pagination_token"
+      "media_hash_key",
+      "message_id",
+      "num_parts",
+      "ttl_msec"
+    ]
+  },
+  {
+    "tool": "chat_media_upload_initialize",
+    "description": "Initializes an XChat media upload session. Needs the OAuth2 scope `media.write`.",
+    "required": [
+      "conversation_id",
+      "total_bytes"
+    ],
+    "properties": [
+      "conversation_id",
+      "total_bytes"
+    ]
+  },
+  {
+    "tool": "create_lists",
+    "description": "Creates a new List for the authenticated user.",
+    "required": [
+      "name"
+    ],
+    "properties": [
+      "description",
+      "name",
+      "private"
+    ]
+  },
+  {
+    "tool": "create_posts",
+    "description": "Creates a new Post for the authenticated user, or edits an existing Post when edit_options are provided. Supports paid partnership disclosure via the paid_partnership field.",
+    "required": [],
+    "properties": [
+      "card_uri",
+      "community_id",
+      "direct_message_deep_link",
+      "edit_options",
+      "for_super_followers_only",
+      "geo",
+      "made_with_ai",
+      "media",
+      "nullcast",
+      "paid_partnership",
+      "poll",
+      "quote_tweet_id",
+      "reply",
+      "reply_settings",
+      "share_with_followers",
+      "text"
+    ]
+  },
+  {
+    "tool": "create_scheduled_broadcast",
+    "description": "Schedules a broadcast for the authenticated user on one of their sources: `source_id` is required. Passing a stream key as `source_id` is deprecated and stops working when the /2/users/:id/sources and /2/users/:id/broadcasts routes reach end of life on January 1, 2027; pass the source's `id` from GET /2/sources instead.",
+    "required": [
+      "source_id",
+      "scheduled_start_ms"
+    ],
+    "properties": [
+      "available_for_replay",
+      "chat_option",
+      "description",
+      "is_locked",
+      "locale",
+      "manual_publish",
+      "recurrence",
+      "scheduled_end_ms",
+      "scheduled_start_ms",
+      "source_id",
+      "telecast_id",
+      "thumbnail_media_id",
+      "title"
+    ]
+  },
+  {
+    "tool": "create_source",
+    "description": "Creates a persistent RTMP/RTMPS ingest point for the authenticated user. Push an encoder to `rtmps_url` with the returned `stream_key`. This is the only response that includes the stream key; read it later with GET /2/sources/:id/stream_key.",
+    "required": [
+      "name",
+      "region"
+    ],
+    "properties": [
+      "name",
+      "region"
     ]
   },
   {
     "tool": "create_users_bookmark",
-    "description": "Add post(s) to bookmarks.",
+    "description": "Adds one or more Posts to the authenticated user's Bookmarks. Supply `tweet_id` for a single Post, or `tweet_ids` (at most 25) to bookmark several in one request. Optional `folder_id` applies to every Post in the request. Billing and rate limits still apply per HTTP request.",
     "required": [
       "id"
     ],
     "properties": [
+      "folder_id",
       "id",
       "tweet_id",
-      "tweet_ids",
-      "folder_id"
+      "tweet_ids"
     ]
   },
   {
     "tool": "create_users_bookmark_folder",
-    "description": "Create a bookmark folder.",
+    "description": "Creates a new Bookmark folder for the authenticated user.",
     "required": [
       "id",
       "name"
@@ -115,11 +237,32 @@
     "properties": [
       "id",
       "name"
+    ]
+  },
+  {
+    "tool": "delete_scheduled_broadcast",
+    "description": "Deletes a scheduled broadcast by its alphanumeric broadcast id.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "roll_forward"
+    ]
+  },
+  {
+    "tool": "delete_source",
+    "description": "Deletes one of the authenticated user's stream sources.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
     ]
   },
   {
     "tool": "delete_users_bookmark",
-    "description": "Remove a post from bookmarks.",
+    "description": "Removes a Post from the authenticated user's Bookmarks by its ID.",
     "required": [
       "id",
       "tweet_id"
@@ -130,53 +273,196 @@
     ]
   },
   {
-    "tool": "get_users_liked_posts",
-    "description": "Get posts liked by a user id.",
+    "tool": "follow_list",
+    "description": "Causes the authenticated user to follow a specific List by its ID.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "get_broadcast",
+    "description": "Returns a broadcast owned by the authenticated user.",
     "required": [
       "id"
     ],
     "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "post.fields",
-      "user.fields",
-      "expansions"
+      "broadcast.fields",
+      "id"
     ]
   },
   {
-    "tool": "get_posts_liking_users",
-    "description": "Get users who liked a post id.",
+    "tool": "get_broadcast_chat",
+    "description": "Returns newest-first chat messages for a broadcast owned by the authenticated user.",
     "required": [
       "id"
     ],
     "properties": [
+      "broadcast_chat_message.fields",
+      "expansions",
       "id",
       "max_results",
       "pagination_token",
-      "user.fields",
-      "post.fields",
-      "expansions"
+      "user.fields"
     ]
   },
   {
-    "tool": "search_users",
-    "description": "Search X user accounts by keyword.",
+    "tool": "get_chat_conversation",
+    "description": "Returns metadata for a Chat conversation including type, muted status, group details, and your unread state. For the unread state, request chat_conversation.fields=unread,last_read_event_id,newest_event_id: those fields give your read state, computed from your latest read receipt and the conversation's latest notifying message. Use chat_conversation.fields to select which fields are returned. Use expansions to hydrate member, admin, or participant user objects. Use user.fields to control which profile fields are returned for expanded users.",
     "required": [
-      "query"
+      "id"
     ],
     "properties": [
-      "query",
+      "chat_conversation.fields",
+      "expansions",
+      "id",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_chat_conversation_events",
+    "description": "Retrieves the events of a specific Chat conversation, newest first, with pagination support: messages, key changes, group changes, and read receipts. Events with an id above the conversation's last_read_event_id are unread: they come after the point you read up to. To collect them, page until an event's id is at or below it. Only `id` and `encoded_event` are always present. Events are either end-to-end encrypted or unencrypted, such as messages sent before the conversation was encrypted. Encrypted events carry `conversation_key_version`, and usually `conversation_token` and `message_event_signature`; treat an encrypted event without `message_event_signature` as unverified. An event without `conversation_key_version` is unencrypted. Decode each `encoded_event` client-side, and decrypt it with the conversation key named by `conversation_key_version` when that is present. A page holds up to `max_results` events and can hold fewer while `has_more` is true. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "chat_message_event.fields",
+      "id",
       "max_results",
-      "next_token",
-      "user.fields",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "get_chat_conversations",
+    "description": "Retrieves a list of Chat conversations for the authenticated user's inbox, newest first: the most recently active conversation comes first. To find the chat with a particular person, start with participant_query set to their @username or name. The unread, last_read_event_id and newest_event_id fields give your read state, computed from your latest read receipt and each conversation's latest notifying message. Request them with chat_conversation.fields=unread,last_read_event_id,newest_event_id. The filters unread_only, type, is_archived, is_muted, participant_ids, participant_query, start_time and end_time are optional, and all filters must match (AND). participant_query keeps conversations where another participant's username, or a word of their display name, starts with the query, ignoring case and accents; with a leading @ it matches usernames only. It considers the 100 people who best match the query, uses only public profile information, and never matches group names, nicknames or messages. start_time and end_time apply to the time of each conversation's latest message. Each page covers max_results conversations and returns those that match, so a page can hold fewer than max_results, or none, while meta.next_token is set and has_more is true: keep paging, passing meta.next_token as pagination_token. Once a page reaches a conversation whose latest message is older than start_time, has_more is false. A pagination_token only works with the same filters as the request that returned it; with other filters, the request fails with a 400. When both are provided, `start_time` must be earlier than `end_time`.",
+    "required": [],
+    "properties": [
+      "chat_conversation.fields",
+      "end_time",
+      "expansions",
+      "is_archived",
+      "is_muted",
+      "max_results",
+      "pagination_token",
+      "participant_ids",
+      "participant_query",
+      "start_time",
+      "type",
+      "unread_only",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_chat_message_request",
+    "description": "Retrieves the message request state of a 1:1 Chat conversation and its newest message events. Like opening the request in an X app, reading it marks the returned messages as delivered and updates the unread badge.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "chat_message_request_detail.fields",
+      "id"
+    ]
+  },
+  {
+    "tool": "get_chat_message_requests",
+    "description": "Retrieves the authenticated user's pending Chat message requests from one inbox. Message contents are end-to-end encrypted unless the conversation is unencrypted. Accepting or deleting requests between pages can skip or repeat requests, and a page can be empty while `next_token` is set.",
+    "required": [],
+    "properties": [
+      "chat_message_request.fields",
+      "inbox_type",
+      "max_results",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "get_chat_moderators",
+    "description": "Returns the authenticated broadcaster's persistent moderators as User resources. The list applies to all of their current and future broadcast chats.",
+    "required": [],
+    "properties": [
+      "expansions",
       "post.fields",
-      "expansions"
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_communities_by_id",
+    "description": "Retrieves details of a specific Community by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "community.fields",
+      "id"
+    ]
+  },
+  {
+    "tool": "get_lists_by_id",
+    "description": "Retrieves details of a specific List by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "list.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_lists_followers",
+    "description": "Retrieves a list of Users who follow a specific List by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_lists_members",
+    "description": "Retrieves a list of Users who are members of a specific List by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_lists_posts",
+    "description": "Retrieves a list of Posts associated with a specific List by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "media.fields",
+      "pagination_token",
+      "place.fields",
+      "poll.fields",
+      "post.fields",
+      "user.fields"
     ]
   },
   {
     "tool": "get_news",
-    "description": "Get single X news story by ID.",
+    "description": "Retrieves news story by its ID. Each returned story includes a `url` deeplinking to its x.com page.",
     "required": [
       "id"
     ],
@@ -186,470 +472,292 @@
     ]
   },
   {
-    "tool": "search_communities",
-    "description": "Search X Communities by keyword.",
+    "tool": "get_posts_liking_users",
+    "description": "Retrieves a list of Users who liked a specific Post by its ID.",
     "required": [
-      "query"
+      "id"
     ],
     "properties": [
-      "query",
+      "expansions",
+      "id",
       "max_results",
       "pagination_token",
-      "community.fields"
+      "post.fields",
+      "user.fields"
     ]
   },
   {
-    "tool": "get_communities_by_id",
-    "description": "Get Community details by ID.",
+    "tool": "get_scheduled_broadcast",
+    "description": "Returns a single scheduled broadcast by its alphanumeric broadcast id.",
     "required": [
       "id"
     ],
     "properties": [
-      "id",
-      "community.fields"
+      "id"
     ]
   },
   {
-    "tool": "search_spaces",
-    "description": "Search Spaces by keyword (state: live, scheduled, all).",
-    "required": [
-      "query"
-    ],
-    "properties": [
-      "query",
-      "state",
-      "max_results",
-      "space.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_spaces_by_id",
-    "description": "Get Space by ID.",
+    "tool": "get_scheduled_call",
+    "description": "Returns a scheduled call the authenticated user organizes or is invited to, at its occurrence running now or its next one within a year: its time, call, recurrence and who is invited and how they answered. Changes can take a few seconds to show here. Use scheduled_call.fields to select which fields are returned.",
     "required": [
       "id"
     ],
     "properties": [
+      "call.fields",
+      "expansions",
       "id",
-      "space.fields",
-      "user.fields",
-      "expansions"
+      "scheduled_call.fields",
+      "user.fields"
     ]
   },
   {
-    "tool": "get_spaces_by_ids",
-    "description": "Get Spaces by comma-separated IDs.",
+    "tool": "get_source",
+    "description": "Returns one of the authenticated user's stream sources. Poll it after starting an encoder and wait for `is_stream_active` before going live. The stream key is not included; read it with GET /2/sources/:id/stream_key.",
     "required": [
-      "ids"
+      "id"
     ],
     "properties": [
-      "ids",
-      "space.fields",
-      "user.fields",
-      "expansions"
+      "id"
     ]
   },
   {
     "tool": "get_spaces_by_creator_ids",
-    "description": "Get Spaces by creator numeric user IDs.",
+    "description": "Retrieves details of Spaces created by specified User IDs.",
     "required": [
       "user_ids"
     ],
     "properties": [
-      "user_ids",
+      "expansions",
       "space.fields",
+      "topic.fields",
       "user.fields",
-      "expansions"
+      "user_ids"
+    ]
+  },
+  {
+    "tool": "get_spaces_by_id",
+    "description": "Retrieves details of a specific Space by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "space.fields",
+      "topic.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_spaces_by_ids",
+    "description": "Retrieves details of multiple Spaces by their IDs.",
+    "required": [
+      "ids"
+    ],
+    "properties": [
+      "expansions",
+      "ids",
+      "space.fields",
+      "topic.fields",
+      "user.fields"
     ]
   },
   {
     "tool": "get_spaces_posts",
-    "description": "Get posts shared in a Space.",
+    "description": "Retrieves a list of Posts shared in a specific Space by its ID.",
     "required": [
       "id"
     ],
     "properties": [
+      "expansions",
       "id",
       "max_results",
+      "media.fields",
       "pagination_token",
+      "place.fields",
+      "poll.fields",
       "post.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_lists_by_id",
-    "description": "Get List details by ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "list.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_lists_posts",
-    "description": "Get posts from a List by list ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "post.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_lists_members",
-    "description": "Get members of a List.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "user.fields",
-      "post.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_lists_followers",
-    "description": "Get followers of a List.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "user.fields",
-      "post.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_users_owned_lists",
-    "description": "Get Lists owned by a user ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "list.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_users_followed_lists",
-    "description": "Get Lists followed by a user ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "list.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_users_pinned_lists",
-    "description": "Get Lists pinned by a user ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "list.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_users_list_memberships",
-    "description": "Get Lists a user ID is a member of.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "list.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "create_lists",
-    "description": "Create a new List.",
-    "required": [
-      "name"
-    ],
-    "properties": [
-      "name",
-      "description",
-      "private"
-    ]
-  },
-  {
-    "tool": "update_lists",
-    "description": "Update an existing List.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "name",
-      "description",
-      "private"
-    ]
-  },
-  {
-    "tool": "add_lists_member",
-    "description": "Add a user_id to a List.",
-    "required": [
-      "id",
-      "user_id"
-    ],
-    "properties": [
-      "id",
-      "user_id"
-    ]
-  },
-  {
-    "tool": "remove_lists_member_by_user_id",
-    "description": "Remove a user_id from a List.",
-    "required": [
-      "id",
-      "user_id"
-    ],
-    "properties": [
-      "id",
-      "user_id"
-    ]
-  },
-  {
-    "tool": "follow_list",
-    "description": "Follow a List.",
-    "required": [
-      "id",
-      "list_id"
-    ],
-    "properties": [
-      "id",
-      "list_id"
-    ]
-  },
-  {
-    "tool": "unfollow_list",
-    "description": "Unfollow a List.",
-    "required": [
-      "id",
-      "list_id"
-    ],
-    "properties": [
-      "id",
-      "list_id"
-    ]
-  },
-  {
-    "tool": "pin_list",
-    "description": "Pin a List.",
-    "required": [
-      "id",
-      "list_id"
-    ],
-    "properties": [
-      "id",
-      "list_id"
-    ]
-  },
-  {
-    "tool": "unpin_list",
-    "description": "Unpin a List.",
-    "required": [
-      "id",
-      "list_id"
-    ]
-  },
-  {
-    "tool": "article_create_draft",
-    "description": "Create a draft X Article.",
-    "required": [
-      "title",
-      "content_state"
-    ],
-    "properties": [
-      "title",
-      "content_state",
-      "cover_media"
+      "user.fields"
     ]
   },
   {
     "tool": "get_usage_credits",
-    "description": "Get X API usage credits info.",
+    "description": "Returns the payer's developer-platform credit balance in USD. total_balance is max(0, prepaid_balance + free_balance); prepaid_balance may be negative.",
     "required": [],
     "properties": []
   },
   {
-    "tool": "get_chat_conversations",
-    "description": "List X Chat (DM) conversations.",
+    "tool": "get_users_blocking",
+    "description": "Returns the Users that the given User is blocking.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_bookmark_folders",
+    "description": "Retrieves a list of Bookmark folders created by the authenticated user.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "get_users_bookmarks",
+    "description": "Retrieves a list of Posts bookmarked by the authenticated user. Each returned post includes a `url` deeplinking to it on x.com.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "media.fields",
+      "pagination_token",
+      "place.fields",
+      "poll.fields",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_bookmarks_by_folder_id",
+    "description": "Retrieves Posts in a specific Bookmark folder by its ID for the authenticated user. Each returned post includes a `url` deeplinking to it on x.com.",
+    "required": [
+      "id",
+      "folder_id"
+    ],
+    "properties": [
+      "folder_id",
+      "id",
+      "max_results",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "get_users_followed_lists",
+    "description": "Retrieves a list of Lists followed by a specific User by their ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "list.fields",
+      "max_results",
+      "pagination_token",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_liked_posts",
+    "description": "Retrieves a list of Posts liked by a specific User by their ID. Each returned post includes a `url` deeplinking to it on x.com.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "max_results",
+      "media.fields",
+      "pagination_token",
+      "place.fields",
+      "poll.fields",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_list_memberships",
+    "description": "Retrieves a list of Lists that a specific User is a member of by their ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "expansions",
+      "id",
+      "list.fields",
+      "max_results",
+      "pagination_token",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_me",
+    "description": "Retrieves details of the authenticated user.",
     "required": [],
     "properties": [
-      "max_results",
-      "pagination_token",
-      "unread_only",
-      "type",
-      "participant_query",
-      "participant_ids",
-      "chat_conversation.fields",
-      "user.fields",
-      "expansions"
+      "expansions",
+      "post.fields",
+      "user.fields"
     ]
   },
   {
-    "tool": "get_chat_conversation",
-    "description": "Get one X Chat conversation by id.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "chat_conversation.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_chat_conversation_events",
-    "description": "Get message events in an X Chat conversation.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "chat_message_event.fields"
-    ]
-  },
-  {
-    "tool": "get_chat_message_requests",
-    "description": "List pending X Chat message requests.",
+    "tool": "get_users_me_followers",
+    "description": "Returns the Users who follow the authenticated user. Same results as `GET /2/users/{id}/followers` with your own user ID, without looking it up.",
     "required": [],
     "properties": [
-      "inbox_type",
+      "expansions",
       "max_results",
       "pagination_token",
-      "chat_message_request.fields"
+      "post.fields",
+      "user.fields"
     ]
   },
   {
-    "tool": "get_chat_message_request",
-    "description": "Get single X Chat message request.",
+    "tool": "get_users_me_following",
+    "description": "Returns the Users the authenticated user follows. Same results as `GET /2/users/{id}/following` with your own user ID, without looking it up.",
+    "required": [],
+    "properties": [
+      "expansions",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "get_users_owned_lists",
+    "description": "Retrieves a list of Lists owned by a specific User by their ID.",
     "required": [
       "id"
     ],
     "properties": [
+      "expansions",
       "id",
-      "chat_message_request_detail.fields"
+      "list.fields",
+      "max_results",
+      "pagination_token",
+      "user.fields"
     ]
   },
   {
-    "tool": "accept_chat_message_request",
-    "description": "Accept an X Chat message request.",
+    "tool": "get_users_pinned_lists",
+    "description": "Retrieves a list of Lists pinned by the authenticated user.",
     "required": [
       "id"
     ],
     "properties": [
-      "id"
-    ]
-  },
-  {
-    "tool": "mark_chat_conversation_read",
-    "description": "Mark an X Chat conversation as read.",
-    "required": [
-      "id"
-    ],
-    "properties": [
+      "expansions",
       "id",
-      "action_signatures"
-    ]
-  },
-  {
-    "tool": "mark_chat_conversation_unread",
-    "description": "Mark an X Chat conversation as unread.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id"
-    ]
-  },
-  {
-    "tool": "archive_chat_conversation",
-    "description": "Archive an X Chat conversation.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "action_signatures"
-    ]
-  },
-  {
-    "tool": "unarchive_chat_conversation",
-    "description": "Unarchive an X Chat conversation.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id"
-    ]
-  },
-  {
-    "tool": "send_chat_message",
-    "description": "Send pre-encrypted X Chat message.",
-    "required": [
-      "id",
-      "message_id",
-      "encoded_message_create_event"
-    ],
-    "properties": [
-      "id",
-      "message_id",
-      "encoded_message_create_event",
-      "encoded_message_event_signature"
-    ]
-  },
-  {
-    "tool": "send_chat_typing_indicator",
-    "description": "Send typing indicator in X Chat.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id"
+      "list.fields",
+      "user.fields"
     ]
   },
   {
     "tool": "get_users_public_key",
-    "description": "Get X Chat public key for a user ID.",
+    "description": "Returns a user's registered public keys for X Chat encryption.",
     "required": [
       "id"
     ],
@@ -660,7 +768,7 @@
   },
   {
     "tool": "get_users_public_keys",
-    "description": "Get X Chat public keys for comma-separated user IDs.",
+    "description": "Returns registered public keys for X Chat encryption for the specified users.",
     "required": [
       "ids"
     ],
@@ -670,215 +778,31 @@
     ]
   },
   {
-    "tool": "add_conversation_keys",
-    "description": "Add encrypted conversation keys for X Chat.",
+    "tool": "get_users_timeline",
+    "description": "Retrieves a reverse chronological list of Posts in the authenticated user's Timeline. When both are provided, `start_time` must be earlier than `end_time`. When both are provided, `since_id` must be less than `until_id`. Each returned post includes a `url` deeplinking to it on x.com.",
     "required": [
-      "id",
-      "conversation_key_version",
-      "conversation_participant_keys"
+      "id"
     ],
     "properties": [
-      "id",
-      "conversation_key_version",
-      "conversation_participant_keys",
-      "action_signatures"
-    ]
-  },
-  {
-    "tool": "chat_media_upload_initialize",
-    "description": "Initialize X Chat media upload.",
-    "required": [
-      "conversation_id",
-      "total_bytes"
-    ],
-    "properties": [
-      "conversation_id",
-      "total_bytes"
-    ]
-  },
-  {
-    "tool": "chat_media_upload_append",
-    "description": "Append X Chat media upload chunk.",
-    "required": [
-      "id",
-      "media",
-      "segment_index",
-      "conversation_id",
-      "media_hash_key"
-    ],
-    "properties": [
-      "id",
-      "media",
-      "segment_index",
-      "conversation_id",
-      "media_hash_key"
-    ]
-  },
-  {
-    "tool": "chat_media_upload_finalize",
-    "description": "Finalize X Chat media upload.",
-    "required": [
-      "id",
-      "conversation_id",
-      "media_hash_key",
-      "num_parts"
-    ],
-    "properties": [
-      "id",
-      "conversation_id",
-      "media_hash_key",
-      "num_parts",
-      "message_id",
-      "ttl_msec"
-    ]
-  },
-  {
-    "tool": "chat_media_download",
-    "description": "Download X Chat media.",
-    "required": [
-      "id",
-      "media_hash_key"
-    ],
-    "properties": [
-      "id",
-      "media_hash_key"
-    ]
-  },
-  {
-    "tool": "list_scheduled_calls",
-    "description": "List scheduled X Calls on calendar.",
-    "required": [],
-    "properties": [
-      "start_time",
       "end_time",
+      "exclude",
+      "expansions",
+      "id",
       "max_results",
-      "call.fields",
-      "scheduled_call.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "get_scheduled_call",
-    "description": "Get one scheduled X Call by ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "call.fields",
-      "scheduled_call.fields",
-      "user.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "schedule_call",
-    "description": "Schedule a new X Call.",
-    "required": [
-      "start_time"
-    ],
-    "properties": [
+      "media.fields",
+      "pagination_token",
+      "place.fields",
+      "poll.fields",
+      "post.fields",
+      "since_id",
       "start_time",
-      "duration_minutes",
-      "title",
-      "description",
-      "invitee_ids",
-      "notify_invitees",
-      "recurrence",
-      "time_zone"
+      "until_id",
+      "user.fields"
     ]
   },
   {
-    "tool": "update_scheduled_call",
-    "description": "Update a scheduled X Call.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "start_time",
-      "duration_minutes",
-      "title",
-      "description",
-      "invitee_ids",
-      "notify_invitees",
-      "recurrence",
-      "scope",
-      "occurrence_start_time",
-      "time_zone"
-    ]
-  },
-  {
-    "tool": "cancel_scheduled_call",
-    "description": "Cancel a scheduled X Call.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "notify_invitees",
-      "scope",
-      "occurrence_start_time"
-    ]
-  },
-  {
-    "tool": "respond_to_scheduled_call",
-    "description": "RSVP to a scheduled X Call (accepted, declined, tentative).",
-    "required": [
-      "id",
-      "response"
-    ],
-    "properties": [
-      "id",
-      "response",
-      "scope",
-      "occurrence_start_time"
-    ]
-  },
-  {
-    "tool": "list_sources",
-    "description": "List livestream RTMP sources.",
-    "required": [],
-    "properties": []
-  },
-  {
-    "tool": "get_source",
-    "description": "Get livestream RTMP source by ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id"
-    ]
-  },
-  {
-    "tool": "create_source",
-    "description": "Create livestream RTMP source.",
-    "required": [
-      "name",
-      "region"
-    ],
-    "properties": [
-      "name",
-      "region"
-    ]
-  },
-  {
-    "tool": "update_source",
-    "description": "Rename livestream RTMP source.",
-    "required": [
-      "id",
-      "name"
-    ],
-    "properties": [
-      "id",
-      "name"
-    ]
-  },
-  {
-    "tool": "delete_source",
-    "description": "Delete livestream RTMP source.",
+    "tool": "go_live_scheduled_broadcast",
+    "description": "Publishes a schedule that was created or updated with `manual_publish: true`. Without that flag the coordinator auto-publishes at start and this call is rejected.",
     "required": [
       "id"
     ],
@@ -888,55 +812,60 @@
   },
   {
     "tool": "list_broadcasts",
-    "description": "List live and past broadcasts.",
+    "description": "Returns the authenticated user's live-video broadcasts, or selected owned broadcasts when ids are provided. At most one of `ids`, `max_results` may be provided. At most one of `ids`, `pagination_token` may be provided.",
     "required": [],
     "properties": [
+      "broadcast.fields",
       "ids",
       "max_results",
-      "pagination_token",
-      "broadcast.fields"
-    ]
-  },
-  {
-    "tool": "get_broadcast",
-    "description": "Get broadcast by ID.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "broadcast.fields"
-    ]
-  },
-  {
-    "tool": "get_broadcast_chat",
-    "description": "Get chat history of an ended broadcast.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id",
-      "max_results",
-      "pagination_token",
-      "broadcast_chat_message.fields",
-      "user.fields",
-      "expansions"
+      "pagination_token"
     ]
   },
   {
     "tool": "list_scheduled_broadcasts",
-    "description": "List scheduled broadcasts.",
+    "description": "Returns scheduled broadcasts owned by the authenticated user.",
     "required": [],
     "properties": [
       "max_results",
-      "pagination_token",
+      "newest_start_time",
       "oldest_start_time",
-      "newest_start_time"
+      "pagination_token"
     ]
   },
   {
-    "tool": "get_scheduled_broadcast",
-    "description": "Get scheduled broadcast by ID.",
+    "tool": "list_scheduled_calls",
+    "description": "Returns the X calls on the authenticated user's calendar, earliest first: events on their X Calls calendar, and events on the Microsoft Outlook calendars they linked to X whose conference is an X call. Calls still running at start_time are included. The window defaults to the next 24 hours and may span at most 7 days. Use scheduled_call.fields to select which fields are returned. When both are provided, `start_time` must be earlier than `end_time`.",
+    "required": [],
+    "properties": [
+      "call.fields",
+      "end_time",
+      "expansions",
+      "max_results",
+      "scheduled_call.fields",
+      "start_time",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "list_sources",
+    "description": "Returns the authenticated user's RTMP/RTMPS stream sources. A source's `id` is the `source_id` that POST /2/broadcasts and scheduled broadcasts take. Stream keys are not included; read one with GET /2/sources/:id/stream_key.",
+    "required": [],
+    "properties": []
+  },
+  {
+    "tool": "mark_chat_conversation_read",
+    "description": "Marks a specific Chat conversation as read on behalf of the authenticated user. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient. Without action_signatures the conversation is marked read up to its newest event and the read receipt is unsigned. With one action signature over a MarkConversationReadEvent, the server sends that signed read receipt, marking the conversation read up to the event it names.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "action_signatures",
+      "id"
+    ]
+  },
+  {
+    "tool": "mark_chat_conversation_unread",
+    "description": "Marks a specific Chat conversation as unread on behalf of the authenticated user. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient.",
     "required": [
       "id"
     ],
@@ -945,26 +874,218 @@
     ]
   },
   {
-    "tool": "create_scheduled_broadcast",
-    "description": "Create a scheduled broadcast.",
+    "tool": "mute_broadcast_chat_user",
+    "description": "Prevents a user from posting further messages in a running broadcast chat. When `end_at_ms` is provided, the mute expires at that time. The authenticated user must be the broadcast host or a moderator.",
     "required": [
-      "source_id",
-      "scheduled_start_ms"
+      "id",
+      "user_id"
     ],
     "properties": [
-      "source_id",
-      "scheduled_start_ms",
-      "scheduled_end_ms",
-      "title",
+      "end_at_ms",
+      "id",
+      "message_id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "pin_list",
+    "description": "Causes the authenticated user to pin a specific List by its ID.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "remove_chat_moderator",
+    "description": "Removes a moderator from the authenticated broadcaster's persistent list and returns the updated moderator user IDs.",
+    "required": [
+      "user_id"
+    ],
+    "properties": [
+      "user_id"
+    ]
+  },
+  {
+    "tool": "remove_lists_member_by_user_id",
+    "description": "Removes a User from a List by their ID.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "respond_to_scheduled_call",
+    "description": "Accepts, declines or tentatively accepts an invitation to a scheduled call for the authenticated user. For a recurring call, scope and occurrence_start_time pick the occurrences the answer is for: all of them (the default), one, or one and every one after it.",
+    "required": [
+      "id",
+      "response"
+    ],
+    "properties": [
+      "id",
+      "occurrence_start_time",
+      "response",
+      "scope"
+    ]
+  },
+  {
+    "tool": "schedule_call",
+    "description": "Puts an X call on the authenticated user's X Calls calendar, with them as its organizer, and invites people to it. The call exists right away: share its join_url, or put an agent in it at start time with POST /2/calls/:id/join. A recurrence (an RFC 5545 RRULE) repeats it. Invitees get an email unless notify_invitees is false.",
+    "required": [
+      "start_time"
+    ],
+    "properties": [
       "description",
-      "available_for_replay",
-      "chat_option",
-      "manual_publish"
+      "duration_minutes",
+      "invitee_ids",
+      "notify_invitees",
+      "recurrence",
+      "start_time",
+      "time_zone",
+      "title"
+    ]
+  },
+  {
+    "tool": "search_communities",
+    "description": "Retrieves a list of Communities matching the specified search query.",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "community.fields",
+      "max_results",
+      "next_token",
+      "pagination_token",
+      "query"
+    ]
+  },
+  {
+    "tool": "search_spaces",
+    "description": "Retrieves a list of Spaces matching the specified search query.",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "expansions",
+      "max_results",
+      "query",
+      "space.fields",
+      "state",
+      "topic.fields",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "search_users",
+    "description": "Retrieves a list of Users matching a search query.",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "expansions",
+      "max_results",
+      "next_token",
+      "post.fields",
+      "query",
+      "user.fields"
+    ]
+  },
+  {
+    "tool": "send_chat_message",
+    "description": "Sends a message or reaction to a specific Chat conversation, which you can find with `participant_query` on Get Chat Conversations. Send `encoded_message_create_event`, an end-to-end encrypted event built with the Chat XDK. `content`, a plaintext message or reaction sent unencrypted, is only a fallback for a 1:1 conversation that X Chat can't encrypt because one of the two users has connected an enterprise app that reads their DMs; check that the recipient's `receives_your_chat` user field is `unencrypted` before using it. Otherwise a `content` send is refused, and retrying it won't help: HTTP 400 https://api.x.com/2/problems/encryption-required when the conversation can be encrypted or is a group (send `encoded_message_create_event` instead), 400 https://api.x.com/2/problems/xchat-setup-required when you haven't set up X Chat, 400 https://api.x.com/2/problems/recipient-xchat-setup-required when the recipient hasn't, and 403 https://api.x.com/2/problems/message-request-not-supported when it would be a message request. HTTP 503 https://api.x.com/2/problems/chat-permissions-unavailable means the check failed and nothing was sent; retry it. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient. A recipient who cannot be messaged (closed inbox, system/notification account, or a 1:1 block) returns HTTP 403 with type https://api.x.com/2/problems/recipient-not-messageable.",
+    "required": [
+      "id",
+      "message_id"
+    ],
+    "properties": [
+      "content",
+      "conversation_token",
+      "encoded_message_create_event",
+      "encoded_message_event_signature",
+      "id",
+      "message_id",
+      "xdk_version"
+    ]
+  },
+  {
+    "tool": "send_chat_typing_indicator",
+    "description": "Sends a typing indicator to a specific Chat conversation on behalf of the authenticated user. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "unarchive_chat_conversation",
+    "description": "Unarchives a Chat conversation for the authenticated user only. Unarchiving a conversation that is not archived changes nothing. Works for group and 1:1 conversations. For 1:1 conversations, provide the recipient's user ID; the server constructs the canonical conversation ID from the authenticated user and recipient.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "unfollow_list",
+    "description": "Causes the authenticated user to unfollow a List by its ID.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "unmute_broadcast_chat_user",
+    "description": "Allows a muted user to post messages in a running broadcast chat again. The authenticated user must be the broadcast host or a moderator.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "unpin_list",
+    "description": "Causes the authenticated user to unpin a List by its ID.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "update_lists",
+    "description": "Updates the details of a specific List owned by the authenticated user by its ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "description",
+      "id",
+      "name",
+      "private"
     ]
   },
   {
     "tool": "update_scheduled_broadcast",
-    "description": "Update a scheduled broadcast.",
+    "description": "Updates a scheduled broadcast. Path `:id` is the broadcast id; the body must include `scheduled_broadcast_id`. Re-send every field that should be kept. Passing a stream key as `source_id` is deprecated and stops working when the /2/users/:id/sources and /2/users/:id/broadcasts routes reach end of life on January 1, 2027; pass the source's `id` from GET /2/sources instead.",
     "required": [
       "id",
       "scheduled_broadcast_id",
@@ -972,89 +1093,76 @@
       "scheduled_end_ms"
     ],
     "properties": [
+      "available_for_replay",
+      "chat_option",
+      "description",
       "id",
+      "is_locked",
+      "locale",
+      "manual_publish",
+      "roll_forward",
       "scheduled_broadcast_id",
-      "scheduled_start_ms",
       "scheduled_end_ms",
+      "scheduled_start_ms",
       "source_id",
-      "title",
-      "description"
+      "thumbnail_media_id",
+      "title"
     ]
   },
   {
-    "tool": "delete_scheduled_broadcast",
-    "description": "Delete a scheduled broadcast.",
+    "tool": "update_scheduled_call",
+    "description": "Moves, renames or re-invites a scheduled call the authenticated user organizes. Only the fields sent change. For a recurring call, scope and occurrence_start_time pick the occurrences: all of them (the default), one, or one and every one after it.",
     "required": [
       "id"
     ],
     "properties": [
-      "id"
+      "description",
+      "duration_minutes",
+      "id",
+      "invitee_ids",
+      "notify_invitees",
+      "occurrence_start_time",
+      "recurrence",
+      "scope",
+      "start_time",
+      "time_zone",
+      "title"
     ]
   },
   {
-    "tool": "go_live_scheduled_broadcast",
-    "description": "Start a scheduled broadcast with manual_publish.",
-    "required": [
-      "id"
-    ],
-    "properties": [
-      "id"
-    ]
-  },
-  {
-    "tool": "get_chat_moderators",
-    "description": "List broadcast chat moderators.",
-    "required": [],
-    "properties": [
-      "user.fields",
-      "post.fields",
-      "expansions"
-    ]
-  },
-  {
-    "tool": "add_chat_moderator",
-    "description": "Add a broadcast chat moderator.",
-    "required": [
-      "user_id"
-    ],
-    "properties": [
-      "user_id"
-    ]
-  },
-  {
-    "tool": "remove_chat_moderator",
-    "description": "Remove a broadcast chat moderator.",
-    "required": [
-      "user_id"
-    ],
-    "properties": [
-      "user_id"
-    ]
-  },
-  {
-    "tool": "mute_broadcast_chat_user",
-    "description": "Mute a user in broadcast chat.",
+    "tool": "update_source",
+    "description": "Renames one of the authenticated user's stream sources.",
     "required": [
       "id",
-      "user_id"
+      "name"
     ],
     "properties": [
       "id",
-      "user_id",
-      "end_at_ms",
-      "message_id"
+      "name"
     ]
   },
   {
-    "tool": "unmute_broadcast_chat_user",
-    "description": "Unmute a user in broadcast chat.",
+    "tool": "users_id_block",
+    "description": "Causes the source User to block the target User.",
     "required": [
       "id",
-      "user_id"
+      "target_user_id"
     ],
     "properties": [
       "id",
-      "user_id"
+      "target_user_id"
+    ]
+  },
+  {
+    "tool": "users_id_unblock",
+    "description": "Causes the source User to unblock the target User.",
+    "required": [
+      "source_user_id",
+      "target_user_id"
+    ],
+    "properties": [
+      "source_user_id",
+      "target_user_id"
     ]
   }
 ]

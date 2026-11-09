@@ -3,7 +3,7 @@
 Grok Bot Official X API Bridge CLI
 Supports both:
 - Namespace `x` (13 built-in public X read tools, 30/min & 1000/day included with subscription in Grok Bot)
-- Namespace `user-X---` (83 authenticated user X tools, included with Grok Bot subscription)
+- Namespace `user-X---` (nearly a hundred authenticated user X tools (varies with X official updates), included with Grok Bot subscription)
 """
 import argparse
 import json

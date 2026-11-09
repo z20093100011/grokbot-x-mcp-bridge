@@ -187,7 +187,7 @@ _OLD_TOOLS_SPEC = [
     },
     {
         "name": "x_raw_call",
-        "description": "Generic dispatcher for ANY of the 13 `x` tools or 96 `user-X---` tools by name.",
+        "description": "Generic dispatcher for ANY of the 13 `x` tools or nearly a hundred `user-X---` tools (varies with X official updates) by name.",
         "inputSchema": {
             "type": "object",
             "properties": {
