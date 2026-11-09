@@ -1,0 +1,16 @@
+[Unit]
+Description=Grok Bot X Official MCP Gateway
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/.config/grokbot-x-gateway
+ExecStart=/usr/bin/python3 %h/.config/grokbot-x-gateway/mini_gateway.py
+Restart=always
+RestartSec=2
+Environment=GATEWAY_HOST=127.0.0.1
+Environment=GATEWAY_PORT=18082
+
+[Install]
+WantedBy=default.target

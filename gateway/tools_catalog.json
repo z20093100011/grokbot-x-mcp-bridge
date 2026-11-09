@@ -1,0 +1,566 @@
+[
+  {
+    "name": "get_posts_by_id",
+    "description": "[Built-in X] Get Posts by ID. Each returned post includes a `url` deeplinking to it on x.com. Requires one post id in id. For several ids, use get_posts_by_ids.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_posts_by_ids",
+    "description": "[Built-in X] Get Posts by IDs. Each returned post includes a `url` deeplinking to it on x.com.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "ids": {
+          "description": "(comma-separated)",
+          "type": "string"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "ids"
+      ]
+    }
+  },
+  {
+    "name": "get_posts_counts_recent",
+    "description": "[Built-in X] Get Posts Counts Recent. The search string is query, not q. Date operators are since:YYYY-MM-DD or since:YYYY-MM-DD_HH:MM:SS_UTC (UTC only).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "type": "string"
+        },
+        "granularity": {
+          "enum": [
+            "minute",
+            "hour",
+            "day"
+          ],
+          "type": "string"
+        },
+        "next_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "search_count.fields": {
+          "type": "string"
+        },
+        "since_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "description": "Must be within the last 7 days.",
+          "type": "string"
+        },
+        "until_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "get_posts_quoted_posts",
+    "description": "[Built-in X] Get Posts Quoted Posts. Each returned post includes a `url` deeplinking to it on x.com.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "exclude": {
+          "description": "(comma-separated)",
+          "type": "string"
+        },
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_posts_reposted_by",
+    "description": "[Built-in X] Get Posts Reposted by.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_trends_by_woeid",
+    "description": "[Built-in X] Get Trends by Woeid (1 = worldwide). Each returned trend includes a `url` deeplinking to its x.com search.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "max_trends": {
+          "type": "integer"
+        },
+        "trend.fields": {
+          "description": "A comma separated list of Trend fields to display.",
+          "type": "string"
+        },
+        "woeid": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "woeid"
+      ]
+    }
+  },
+  {
+    "name": "get_users_by_id",
+    "description": "[Built-in X] Get Users by ID. Requires the numeric user id, not a username.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_users_by_username",
+    "description": "[Built-in X] Get Users by Username. The handle is username (singular), 1 to 15 letters, digits or underscores.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username"
+      ]
+    }
+  },
+  {
+    "name": "get_users_by_usernames",
+    "description": "[Built-in X] Get Users by Usernames. usernames is a comma-separated string; each name is 1 to 15 letters, digits or underscores.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        },
+        "usernames": {
+          "description": "(comma-separated)",
+          "type": "string"
+        }
+      },
+      "required": [
+        "usernames"
+      ]
+    }
+  },
+  {
+    "name": "get_users_mentions",
+    "description": "[Built-in X] Get Users Mentions. Each returned post includes a `url` deeplinking to it on x.com.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "description": "Must be on or after 2010-11-06.",
+          "type": "string"
+        },
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "since_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "description": "Must be on or after 2010-11-06.",
+          "type": "string"
+        },
+        "until_id": {
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "get_users_posts",
+    "description": "[Built-in X] Get Users Posts. Requires the numeric user id, not a username. Resolve a handle with get_users_by_username first.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "description": "Must be on or after 2010-11-06.",
+          "type": "string"
+        },
+        "exclude": {
+          "description": "(comma-separated)",
+          "type": "string"
+        },
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "since_id": {
+          "type": "string"
+        },
+        "start_time": {
+          "description": "Must be on or after 2010-11-06.",
+          "type": "string"
+        },
+        "until_id": {
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id"
+      ]
+    }
+  },
+  {
+    "name": "search_news",
+    "description": "[Built-in X] Search News. The search string is query, not q. max_age_hours is 1 to 720.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "max_age_hours": {
+          "type": "integer"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "news.fields": {
+          "description": "A comma separated list of News fields to display.",
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "search_posts_all",
+    "description": "[Built-in X] Search Posts All (1000/day, 30/min included with subscription). The search string is query, not q. Date operators are since:YYYY-MM-DD or since:YYYY-MM-DD_HH:MM:SS_UTC (UTC only).",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "end_time": {
+          "type": "string"
+        },
+        "expansions": {
+          "description": "A comma separated list of fields to expand.",
+          "type": "string"
+        },
+        "max_results": {
+          "type": "integer"
+        },
+        "media.fields": {
+          "description": "A comma separated list of Media fields to display.",
+          "type": "string"
+        },
+        "next_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "pagination_token": {
+          "description": "A base32hex-encoded pagination token.",
+          "type": "string"
+        },
+        "place.fields": {
+          "description": "A comma separated list of Place fields to display.",
+          "type": "string"
+        },
+        "poll.fields": {
+          "description": "A comma separated list of Poll fields to display.",
+          "type": "string"
+        },
+        "post.fields": {
+          "description": "A comma separated list of Post fields to display.",
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        },
+        "since_id": {
+          "type": "string"
+        },
+        "sort_order": {
+          "enum": [
+            "recency",
+            "relevancy"
+          ],
+          "type": "string"
+        },
+        "start_time": {
+          "type": "string"
+        },
+        "until_id": {
+          "type": "string"
+        },
+        "user.fields": {
+          "description": "A comma separated list of User fields to display.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    }
+  },
+  {
+    "name": "x_account_call",
+    "description": "[Account user-X--- On-Demand Gateway] Discover and invoke the 83 authenticated X account tools (logged in as @<YOUR_X_USERNAME>, numeric id '<YOUR_X_USER_ID>', included with Grok Bot subscription) without bloating context. Capabilities include: 1) Account & Profile: get_users_me, get_users_me_followers, get_users_me_following, get_users_timeline (home feed); 2) Bookmarks & Likes: get_users_bookmarks, get_users_bookmark_folders, get_users_bookmarks_by_folder_id, create_users_bookmark, delete_users_bookmark, get_users_liked_posts, get_posts_liking_users; 3) People, Communities & Spaces: search_users, search_communities, get_communities_by_id, search_spaces, get_spaces_by_id, get_spaces_by_creator_ids, get_spaces_posts; 4) Lists: get_lists_by_id, get_lists_posts, get_lists_members, get_lists_followers, get_users_owned_lists, get_users_followed_lists, get_users_pinned_lists, create_lists, update_lists, add_lists_member, remove_lists_member_by_user_id, follow_list, pin_list; 5) X Articles, X Chat (DMs), Scheduled Calls & Livestreams: article_create_draft, get_chat_conversations, get_chat_conversation_events, list_broadcasts, get_broadcast_chat, list_scheduled_calls. Usage: pass action='list' (optional filter='bookmark|list|space|chat|...') to inspect exact tool names and required/optional parameters locally with 0 latency; pass action='call' with tool='<tool_name>' and arguments={...} to execute against Grok Bot's user-X--- connector and get raw JSON.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "list",
+            "call"
+          ],
+          "description": "'list' returns tool schemas instantaneously (0 API calls); 'call' invokes the tool via Grok Bot user-X---."
+        },
+        "filter": {
+          "type": "string",
+          "description": "Optional substring filter when action='list' (e.g. 'bookmark', 'list', 'space', 'chat', 'user')."
+        },
+        "tool": {
+          "type": "string",
+          "description": "Required when action='call': exact tool name such as 'get_users_bookmarks', 'get_users_timeline', 'search_users', 'get_lists_posts'."
+        },
+        "arguments": {
+          "type": "object",
+          "description": "Required when action='call': JSON object of arguments for the target tool (for own account tools, id defaults to '<YOUR_X_USER_ID>' if omitted)."
+        }
+      },
+      "required": [
+        "action"
+      ]
+    }
+  }
+]

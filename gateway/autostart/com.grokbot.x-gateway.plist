@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.grokbot.x-gateway</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/bin/python3</string>
+        <string>GATEWAY_DIR/mini_gateway.py</string>
+    </array>
+    <key>WorkingDirectory</key>
+    <string>GATEWAY_DIR</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>GATEWAY_DIR/gateway.log</string>
+    <key>StandardErrorPath</key>
+    <string>GATEWAY_DIR/gateway.log</string>
+</dict>
+</plist>

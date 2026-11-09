@@ -1,0 +1,1060 @@
+[
+  {
+    "tool": "get_users_me",
+    "description": "Get authenticated user (@<YOUR_X_USERNAME>, id: <YOUR_X_USER_ID>) profile.",
+    "required": [],
+    "properties": [
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_me_followers",
+    "description": "Get the authenticated user's followers.",
+    "required": [],
+    "properties": [
+      "max_results",
+      "pagination_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_me_following",
+    "description": "Get the users the authenticated user follows.",
+    "required": [],
+    "properties": [
+      "max_results",
+      "pagination_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_timeline",
+    "description": "Get authenticated user's home timeline (pass id='<YOUR_X_USER_ID>').",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "start_time",
+      "end_time",
+      "exclude",
+      "post.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_bookmarks",
+    "description": "Get authenticated user's bookmarks (pass id='<YOUR_X_USER_ID>').",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_bookmark_folders",
+    "description": "Get authenticated user's bookmark folders (pass id='<YOUR_X_USER_ID>').",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "get_users_bookmarks_by_folder_id",
+    "description": "Get bookmarks inside a folder.",
+    "required": [
+      "id",
+      "folder_id"
+    ],
+    "properties": [
+      "id",
+      "folder_id",
+      "max_results",
+      "pagination_token"
+    ]
+  },
+  {
+    "tool": "create_users_bookmark",
+    "description": "Add post(s) to bookmarks.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "tweet_id",
+      "tweet_ids",
+      "folder_id"
+    ]
+  },
+  {
+    "tool": "create_users_bookmark_folder",
+    "description": "Create a bookmark folder.",
+    "required": [
+      "id",
+      "name"
+    ],
+    "properties": [
+      "id",
+      "name"
+    ]
+  },
+  {
+    "tool": "delete_users_bookmark",
+    "description": "Remove a post from bookmarks.",
+    "required": [
+      "id",
+      "tweet_id"
+    ],
+    "properties": [
+      "id",
+      "tweet_id"
+    ]
+  },
+  {
+    "tool": "get_users_liked_posts",
+    "description": "Get posts liked by a user id.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_posts_liking_users",
+    "description": "Get users who liked a post id.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "search_users",
+    "description": "Search X user accounts by keyword.",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "query",
+      "max_results",
+      "next_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_news",
+    "description": "Get single X news story by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "news.fields"
+    ]
+  },
+  {
+    "tool": "search_communities",
+    "description": "Search X Communities by keyword.",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "query",
+      "max_results",
+      "pagination_token",
+      "community.fields"
+    ]
+  },
+  {
+    "tool": "get_communities_by_id",
+    "description": "Get Community details by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "community.fields"
+    ]
+  },
+  {
+    "tool": "search_spaces",
+    "description": "Search Spaces by keyword (state: live, scheduled, all).",
+    "required": [
+      "query"
+    ],
+    "properties": [
+      "query",
+      "state",
+      "max_results",
+      "space.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_spaces_by_id",
+    "description": "Get Space by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "space.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_spaces_by_ids",
+    "description": "Get Spaces by comma-separated IDs.",
+    "required": [
+      "ids"
+    ],
+    "properties": [
+      "ids",
+      "space.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_spaces_by_creator_ids",
+    "description": "Get Spaces by creator numeric user IDs.",
+    "required": [
+      "user_ids"
+    ],
+    "properties": [
+      "user_ids",
+      "space.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_spaces_posts",
+    "description": "Get posts shared in a Space.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_lists_by_id",
+    "description": "Get List details by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "list.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_lists_posts",
+    "description": "Get posts from a List by list ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "post.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_lists_members",
+    "description": "Get members of a List.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_lists_followers",
+    "description": "Get followers of a List.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_owned_lists",
+    "description": "Get Lists owned by a user ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "list.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_followed_lists",
+    "description": "Get Lists followed by a user ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "list.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_pinned_lists",
+    "description": "Get Lists pinned by a user ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "list.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_users_list_memberships",
+    "description": "Get Lists a user ID is a member of.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "list.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "create_lists",
+    "description": "Create a new List.",
+    "required": [
+      "name"
+    ],
+    "properties": [
+      "name",
+      "description",
+      "private"
+    ]
+  },
+  {
+    "tool": "update_lists",
+    "description": "Update an existing List.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "name",
+      "description",
+      "private"
+    ]
+  },
+  {
+    "tool": "add_lists_member",
+    "description": "Add a user_id to a List.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "remove_lists_member_by_user_id",
+    "description": "Remove a user_id from a List.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  },
+  {
+    "tool": "follow_list",
+    "description": "Follow a List.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "unfollow_list",
+    "description": "Unfollow a List.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "pin_list",
+    "description": "Pin a List.",
+    "required": [
+      "id",
+      "list_id"
+    ],
+    "properties": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "unpin_list",
+    "description": "Unpin a List.",
+    "required": [
+      "id",
+      "list_id"
+    ]
+  },
+  {
+    "tool": "article_create_draft",
+    "description": "Create a draft X Article.",
+    "required": [
+      "title",
+      "content_state"
+    ],
+    "properties": [
+      "title",
+      "content_state",
+      "cover_media"
+    ]
+  },
+  {
+    "tool": "get_usage_credits",
+    "description": "Get X API usage credits info.",
+    "required": [],
+    "properties": []
+  },
+  {
+    "tool": "get_chat_conversations",
+    "description": "List X Chat (DM) conversations.",
+    "required": [],
+    "properties": [
+      "max_results",
+      "pagination_token",
+      "unread_only",
+      "type",
+      "participant_query",
+      "participant_ids",
+      "chat_conversation.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_chat_conversation",
+    "description": "Get one X Chat conversation by id.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "chat_conversation.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_chat_conversation_events",
+    "description": "Get message events in an X Chat conversation.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "chat_message_event.fields"
+    ]
+  },
+  {
+    "tool": "get_chat_message_requests",
+    "description": "List pending X Chat message requests.",
+    "required": [],
+    "properties": [
+      "inbox_type",
+      "max_results",
+      "pagination_token",
+      "chat_message_request.fields"
+    ]
+  },
+  {
+    "tool": "get_chat_message_request",
+    "description": "Get single X Chat message request.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "chat_message_request_detail.fields"
+    ]
+  },
+  {
+    "tool": "accept_chat_message_request",
+    "description": "Accept an X Chat message request.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "mark_chat_conversation_read",
+    "description": "Mark an X Chat conversation as read.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "action_signatures"
+    ]
+  },
+  {
+    "tool": "mark_chat_conversation_unread",
+    "description": "Mark an X Chat conversation as unread.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "archive_chat_conversation",
+    "description": "Archive an X Chat conversation.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "action_signatures"
+    ]
+  },
+  {
+    "tool": "unarchive_chat_conversation",
+    "description": "Unarchive an X Chat conversation.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "send_chat_message",
+    "description": "Send pre-encrypted X Chat message.",
+    "required": [
+      "id",
+      "message_id",
+      "encoded_message_create_event"
+    ],
+    "properties": [
+      "id",
+      "message_id",
+      "encoded_message_create_event",
+      "encoded_message_event_signature"
+    ]
+  },
+  {
+    "tool": "send_chat_typing_indicator",
+    "description": "Send typing indicator in X Chat.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "get_users_public_key",
+    "description": "Get X Chat public key for a user ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "public_key.fields"
+    ]
+  },
+  {
+    "tool": "get_users_public_keys",
+    "description": "Get X Chat public keys for comma-separated user IDs.",
+    "required": [
+      "ids"
+    ],
+    "properties": [
+      "ids",
+      "public_key.fields"
+    ]
+  },
+  {
+    "tool": "add_conversation_keys",
+    "description": "Add encrypted conversation keys for X Chat.",
+    "required": [
+      "id",
+      "conversation_key_version",
+      "conversation_participant_keys"
+    ],
+    "properties": [
+      "id",
+      "conversation_key_version",
+      "conversation_participant_keys",
+      "action_signatures"
+    ]
+  },
+  {
+    "tool": "chat_media_upload_initialize",
+    "description": "Initialize X Chat media upload.",
+    "required": [
+      "conversation_id",
+      "total_bytes"
+    ],
+    "properties": [
+      "conversation_id",
+      "total_bytes"
+    ]
+  },
+  {
+    "tool": "chat_media_upload_append",
+    "description": "Append X Chat media upload chunk.",
+    "required": [
+      "id",
+      "media",
+      "segment_index",
+      "conversation_id",
+      "media_hash_key"
+    ],
+    "properties": [
+      "id",
+      "media",
+      "segment_index",
+      "conversation_id",
+      "media_hash_key"
+    ]
+  },
+  {
+    "tool": "chat_media_upload_finalize",
+    "description": "Finalize X Chat media upload.",
+    "required": [
+      "id",
+      "conversation_id",
+      "media_hash_key",
+      "num_parts"
+    ],
+    "properties": [
+      "id",
+      "conversation_id",
+      "media_hash_key",
+      "num_parts",
+      "message_id",
+      "ttl_msec"
+    ]
+  },
+  {
+    "tool": "chat_media_download",
+    "description": "Download X Chat media.",
+    "required": [
+      "id",
+      "media_hash_key"
+    ],
+    "properties": [
+      "id",
+      "media_hash_key"
+    ]
+  },
+  {
+    "tool": "list_scheduled_calls",
+    "description": "List scheduled X Calls on calendar.",
+    "required": [],
+    "properties": [
+      "start_time",
+      "end_time",
+      "max_results",
+      "call.fields",
+      "scheduled_call.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "get_scheduled_call",
+    "description": "Get one scheduled X Call by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "call.fields",
+      "scheduled_call.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "schedule_call",
+    "description": "Schedule a new X Call.",
+    "required": [
+      "start_time"
+    ],
+    "properties": [
+      "start_time",
+      "duration_minutes",
+      "title",
+      "description",
+      "invitee_ids",
+      "notify_invitees",
+      "recurrence",
+      "time_zone"
+    ]
+  },
+  {
+    "tool": "update_scheduled_call",
+    "description": "Update a scheduled X Call.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "start_time",
+      "duration_minutes",
+      "title",
+      "description",
+      "invitee_ids",
+      "notify_invitees",
+      "recurrence",
+      "scope",
+      "occurrence_start_time",
+      "time_zone"
+    ]
+  },
+  {
+    "tool": "cancel_scheduled_call",
+    "description": "Cancel a scheduled X Call.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "notify_invitees",
+      "scope",
+      "occurrence_start_time"
+    ]
+  },
+  {
+    "tool": "respond_to_scheduled_call",
+    "description": "RSVP to a scheduled X Call (accepted, declined, tentative).",
+    "required": [
+      "id",
+      "response"
+    ],
+    "properties": [
+      "id",
+      "response",
+      "scope",
+      "occurrence_start_time"
+    ]
+  },
+  {
+    "tool": "list_sources",
+    "description": "List livestream RTMP sources.",
+    "required": [],
+    "properties": []
+  },
+  {
+    "tool": "get_source",
+    "description": "Get livestream RTMP source by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "create_source",
+    "description": "Create livestream RTMP source.",
+    "required": [
+      "name",
+      "region"
+    ],
+    "properties": [
+      "name",
+      "region"
+    ]
+  },
+  {
+    "tool": "update_source",
+    "description": "Rename livestream RTMP source.",
+    "required": [
+      "id",
+      "name"
+    ],
+    "properties": [
+      "id",
+      "name"
+    ]
+  },
+  {
+    "tool": "delete_source",
+    "description": "Delete livestream RTMP source.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "list_broadcasts",
+    "description": "List live and past broadcasts.",
+    "required": [],
+    "properties": [
+      "ids",
+      "max_results",
+      "pagination_token",
+      "broadcast.fields"
+    ]
+  },
+  {
+    "tool": "get_broadcast",
+    "description": "Get broadcast by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "broadcast.fields"
+    ]
+  },
+  {
+    "tool": "get_broadcast_chat",
+    "description": "Get chat history of an ended broadcast.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id",
+      "max_results",
+      "pagination_token",
+      "broadcast_chat_message.fields",
+      "user.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "list_scheduled_broadcasts",
+    "description": "List scheduled broadcasts.",
+    "required": [],
+    "properties": [
+      "max_results",
+      "pagination_token",
+      "oldest_start_time",
+      "newest_start_time"
+    ]
+  },
+  {
+    "tool": "get_scheduled_broadcast",
+    "description": "Get scheduled broadcast by ID.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "create_scheduled_broadcast",
+    "description": "Create a scheduled broadcast.",
+    "required": [
+      "source_id",
+      "scheduled_start_ms"
+    ],
+    "properties": [
+      "source_id",
+      "scheduled_start_ms",
+      "scheduled_end_ms",
+      "title",
+      "description",
+      "available_for_replay",
+      "chat_option",
+      "manual_publish"
+    ]
+  },
+  {
+    "tool": "update_scheduled_broadcast",
+    "description": "Update a scheduled broadcast.",
+    "required": [
+      "id",
+      "scheduled_broadcast_id",
+      "scheduled_start_ms",
+      "scheduled_end_ms"
+    ],
+    "properties": [
+      "id",
+      "scheduled_broadcast_id",
+      "scheduled_start_ms",
+      "scheduled_end_ms",
+      "source_id",
+      "title",
+      "description"
+    ]
+  },
+  {
+    "tool": "delete_scheduled_broadcast",
+    "description": "Delete a scheduled broadcast.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "go_live_scheduled_broadcast",
+    "description": "Start a scheduled broadcast with manual_publish.",
+    "required": [
+      "id"
+    ],
+    "properties": [
+      "id"
+    ]
+  },
+  {
+    "tool": "get_chat_moderators",
+    "description": "List broadcast chat moderators.",
+    "required": [],
+    "properties": [
+      "user.fields",
+      "post.fields",
+      "expansions"
+    ]
+  },
+  {
+    "tool": "add_chat_moderator",
+    "description": "Add a broadcast chat moderator.",
+    "required": [
+      "user_id"
+    ],
+    "properties": [
+      "user_id"
+    ]
+  },
+  {
+    "tool": "remove_chat_moderator",
+    "description": "Remove a broadcast chat moderator.",
+    "required": [
+      "user_id"
+    ],
+    "properties": [
+      "user_id"
+    ]
+  },
+  {
+    "tool": "mute_broadcast_chat_user",
+    "description": "Mute a user in broadcast chat.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id",
+      "end_at_ms",
+      "message_id"
+    ]
+  },
+  {
+    "tool": "unmute_broadcast_chat_user",
+    "description": "Unmute a user in broadcast chat.",
+    "required": [
+      "id",
+      "user_id"
+    ],
+    "properties": [
+      "id",
+      "user_id"
+    ]
+  }
+]
